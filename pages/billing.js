@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import mongoose from 'mongoose';
-import Products from '../models/products';
+import Products from '../models/Products';
 import connectDb from '../middleware/mongoose';
 import dynamic from "next/dynamic"
 import { useRouter } from 'next/router';

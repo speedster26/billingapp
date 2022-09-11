@@ -16,7 +16,7 @@ const Footer = ({ cart, addToCart, removeFromCart, deleteFromCart, subTotal }) =
     return (
         <footer ref={footRef} className='flex flex-col fixed bottom-0 z-40 bg-white border w-full transition translate-y-full h-1/2'>
             {!show && <div onClick={handleClick1} className='hover:cursor-pointer rounded-full bg-[#ff6900] px-3 py-1 text-center text-2xl z-50 flex justify-center absolute -top-8 left-[10.7rem] md:left-1/2 text-white'><BsCartCheckFill /></div>}
-            {show && <div onClick={handleClick1} className='hover:cursor-pointer rounded-full bg-[#ff6900] px-3 py-1 text-center text-2xl z-50 flex justify-center absolute -top-8 left-[10.7rem] md:left-1/2 text-white'><BsCartCheckFill /></div>}
+            <div onClick={handleClick1} className='hover:cursor-pointer rounded-full bg-[#ff6900] px-3 py-1 text-center text-2xl z-50 flex justify-center absolute -top-8 left-[10.7rem] md:left-1/2 text-white'><BsCartCheckFill /></div>
             {cart.length == 0 && <div className="flex flex-col px-52 mt-20 text-xl font-semibold">Nothing in the cart!!</div>}
             {cart.length != 0 && <div className='overflow-y-auto overscroll-y-contain'>
                 <div className="flex flex-col px-10 mt-10 text-xl font-semibold">CART</div>
@@ -59,7 +59,7 @@ const Footer = ({ cart, addToCart, removeFromCart, deleteFromCart, subTotal }) =
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 &#8377;{item.price}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap w-52">
                                                 &#8377;{item.price * item.qty}
                                             </td>
                                             <td className="text-xl text-red-600 font-light px-6 py-4 whitespace-nowrap">
@@ -68,7 +68,7 @@ const Footer = ({ cart, addToCart, removeFromCart, deleteFromCart, subTotal }) =
                                         </tr>)}
                                         <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                                             <td colSpan={4} className="text-right px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Total</td>
-                                            <td colSpan={2} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">&#8377;{subTotal}</td>
+                                            <td colSpan={2} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 w-10">&#8377;{subTotal}</td>
                                         </tr>
 
                                     </tbody>
@@ -77,7 +77,7 @@ const Footer = ({ cart, addToCart, removeFromCart, deleteFromCart, subTotal }) =
                         </div>
                     </div>
                 </div>
-                <div className='flex justify-center' ><button className='flex items-center px-10 py-2 rounded-lg border-2 bg-[#ff6900] text-white font-semibold' onClick={() => router.push('/order')}>Order</button></div>
+                <div className='flex justify-center'><button className='flex items-center px-10 py-2 rounded-lg border-2 bg-[#ff6900] text-white font-semibold' onClick={() => router.push('/order')}>Order</button></div>
             </div>}
         </footer>
     )

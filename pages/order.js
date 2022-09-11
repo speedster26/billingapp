@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import ProgBar from '../components/ProgBar'
 
 const Order = ({saveCustomer}) => {
     const [customer, setCustomer] = useState({ fname: '', lname: '', email: '', phone: '', moc: '' })
@@ -14,7 +15,11 @@ const Order = ({saveCustomer}) => {
     }
 
     return (
-        <div className='flex flex-col items-center mt-20 space-y-20'>
+        <>
+        <ProgBar page={'Order'}/>
+        <div className='flex justify-center'>
+
+        <div className='flex flex-col items-center mt-20 space-y-20 bg-blue-50 w-fit p-10 rounded-3xl shadow-2xl '>
             <h1 className='text-2xl font-semibold'>Basic Information</h1>
             <form onSubmit={handleSubmit} className='flex flex-col text-xl space-y-3'>
                 <div className="flex items-center">
@@ -50,6 +55,8 @@ const Order = ({saveCustomer}) => {
                 </div>
             </form>
         </div>
+        </div>
+        </>
     )
 }
 

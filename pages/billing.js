@@ -6,12 +6,15 @@ import Products from '../models/Products';
 import connectDb from '../middleware/mongoose';
 import dynamic from "next/dynamic"
 import { useRouter } from 'next/router';
+import ProgBar from '../components/ProgBar';
+import Footer from '../components/Footer';
+
 const BarCodeScanner = dynamic(
     () => import("barcode-react-scanner"),
     { ssr: false }
 )
 
-const Billing = ({ allproducts, addToCart, saveAddress }) => {
+const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTotal , removeFromCart , deleteFromCart }) => {
     const [homedelivery, setHomedelivery] = useState(false)
     const [scanResult, setScanResult] = useState('')
     const [scan, setScan] = useState(false)
@@ -49,11 +52,13 @@ const Billing = ({ allproducts, addToCart, saveAddress }) => {
         router.push('?category=' + e.target.value)
     }
     return (
-        <div className='flex flex-col md:mx-auto mt-20 items-center md:space-y-10'>
+        <>
+            <ProgBar page={'Billing'}/>
+        <div className='flex flex-col md:mx-auto mt-20 items-center md:space-y-10 my-14'>
             <h1 className='text-3xl text-center font-semibold'>Billing</h1>
-            <div className="flex flex-col md:flex-row">
-                <div className="md:w-[45vw] items-center flex flex-col space-y-5">
-                    <div className="flex flex-col md:w-1/2 w-[75vw] space-x-5 space-y-4">
+            <div className="flex flex-col md:flex-row md:space-x-10">
+                <div className="md:w-[45vw] items-center flex flex-col space-y-5 shadow-2xl bg-blue-50 rounded-3xl p-8 m-4">
+                    <div className="flex flex-col md:w-1/2 w-[75vw] md:space-x-5 space-y-4">
                         <h2 className='text-xl font-semibold'>1. Select Product</h2>
                         <select name="category" onChange={handleSelect} id="category" value={category} className='relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-black focus:border-black focus:z-10 text-sm md:text-base'>
                             <option hidden value=" "></option>
@@ -116,8 +121,9 @@ const Billing = ({ allproducts, addToCart, saveAddress }) => {
                         </div>
                     </div>}
                 </div>
-                <div className='md:w-[45vw] px-10 border-l'>
-                    <div className="grid grid-flow-row md:grid-cols-4 grid-cols-2 gap-2">
+                <div className='md:w-[45vw] px-10 shadow-2xl rounded-3xl bg-white p-8 m-4'>
+                    {allproducts.length == 0 && <div className='text-xl font-medium text-center'>Nothing to Display</div>}
+                    <div className="grid grid-flow-row md:grid-cols-4 grid-cols-1 gap-2">
                         {products.map((item, i) => {
                             return <div key={i} className='flex flex-col border w-full p-3 hover:cursor-pointer hover:border-[#ff6900] hover:scale-105 transition'>
                                 <div className='mx-auto overflow-hidden z-30'>
@@ -146,6 +152,8 @@ const Billing = ({ allproducts, addToCart, saveAddress }) => {
             </div>
 
         </div>
+        <Footer cart={cart} address={address} addToCart={addToCart} subTotal={subTotal} removeFromCart={removeFromCart} deleteFromCart={deleteFromCart} />
+</>
     )
 }
 

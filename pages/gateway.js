@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { BsCheckAll } from 'react-icons/bs';
 import Script from 'next/script'
+import ProgBar from '../components/ProgBar';
 
 const Gateway = ({ address, cart, customer, subTotal }) => {
   const [method, setMethod] = useState('')
@@ -61,6 +62,7 @@ const Gateway = ({ address, cart, customer, subTotal }) => {
   return (
     <><Head><meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" /></Head>
       <Script type="application/javascript" crossOrigin="anonymous" src={`${process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} />
+      <ProgBar page={'Gateway'}/>
       <div className='flex flex-col mt-20 justify-center items-center space-y-20'>
         <h1 className='text-xl font-semibold'>Payment types</h1>
         <div className="flex space-x-28">

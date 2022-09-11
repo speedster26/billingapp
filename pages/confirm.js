@@ -1,6 +1,7 @@
 import React , { useState , useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
+import ProgBar from '../components/ProgBar';
 
 const Confirm = () => {
   const router = useRouter()
@@ -10,6 +11,8 @@ const Confirm = () => {
   
   const [ID, setID] = useState("")
   return (
+    <>
+    <ProgBar page={'Confirm'}/>
     <div className='mt-20 flex justify-center'>
       <div className='flex flex-col p-10 items-center bg-slate-200 justify-center space-y-10'>
         <h1 className='font-bold text-2xl font-serif'>Your Order has been received</h1>
@@ -22,6 +25,7 @@ const Confirm = () => {
 
       </div>
     </div>
+    </>
   )
 }
 

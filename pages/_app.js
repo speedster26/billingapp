@@ -5,6 +5,7 @@ import '../styles/globals.css'
 import NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProgBar from '../components/ProgBar';
 
 
 function MyApp({ Component, pageProps }) {
@@ -113,8 +114,7 @@ function MyApp({ Component, pageProps }) {
       pauseOnFocusLoss
       draggable
     />
-    <Component addToCart={addToCart} saveAddress={saveAddress} saveCustomer={saveCustomer} cart={cart} subTotal={subTotal} customer={customer} address={address} {...pageProps} />
-    {user && <Footer cart={cart} address={address} addToCart={addToCart} subTotal={subTotal} removeFromCart={removeFromCart} deleteFromCart={deleteFromCart} />}
+    <Component addToCart={addToCart} saveAddress={saveAddress} saveCustomer={saveCustomer} cart={cart} subTotal={subTotal} customer={customer} address={address} removeFromCart={removeFromCart} deleteFromCart={deleteFromCart} {...pageProps} />
   </>
 }
 

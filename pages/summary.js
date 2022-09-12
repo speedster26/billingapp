@@ -12,13 +12,13 @@ const Summary = ({ cart, subTotal, customer, address }) => {
     return (
         <>
             <ProgBar page={'Summary'} />
-            <div className='flex items-center'>
-                <div className='flex flex-col items-center justify-center mt-20 space-y-20 '>
-                    <h1 className='md:text-2xl text-xl font-semibold '>Order Summary</h1>
-                    <div className="flex md:flex-row flex-col justify-center items-center space-y-7 shadow-2xl rounded-3xl bg-white m-1 p-2">
-                        {/* <div className='md:w-[40vw] md:border-r flex flex-col space-y-10 items-center'>
+            <div className='flex md:justify-center items-center'>
+                <div className='flex flex-col items-center justify-center mt-20 space-y-20 md:shadow-2xl md:rounded-3xl md:bg-white m-1 p-2'>
+                    <h1 className='text-2xl font-semibold '>Order Summary</h1>
+                    <div className="flex md:flex-row flex-col justify-center items-center space-y-7 md:space-y-0">
+                        <div className='md:w-[40vw] md:border-r flex flex-col space-y-5 items-center shadow-2xl md:shadow-none rounded-3xl md:rounded-none bg-white m-1 md:m-0 p-2'>
                             <h2 className='md:text-xl text-lg font-medium'>Customer Details</h2>
-                            <div className='flex flex-col space-y-5 md:text-lg text-base'>
+                            <div className='flex flex-col space-y-5 md:text-lg text-base m-1'>
                                 <div className="flex">
                                     <div className='md:w-44 w-32'>Name:</div>
                                     <div className='md:w-52 w-fit'>{customer.fname + " " + customer.lname}</div>
@@ -40,10 +40,10 @@ const Summary = ({ cart, subTotal, customer, address }) => {
                                     <div className='md:w-52 w-fit'>{customer.moc}</div>
                                 </div>
                             </div>
-                        </div> */}
-                        <div className='md:w-[40vw] md:border-l flex flex-col items-center'>
+                        </div>
+                        <div className='md:w-[40vw] md:border-l flex flex-col items-center space-y-5 shadow-2xl md:shadow-none rounded-3xl md:rounded-none  bg-white m-1 md:m-0 p-2'>
                             <h2 className='md:text-xl text-lg font-medium'>Orders</h2>
-                            <div className='grid'>
+                            <div className='grid m-1'>
                                 {cart.map((item, i) => {
                                     return <div key={i} className='flex md:h-28 h-fit border-b md:w-96 w-fit'>
                                         <div className='mx-auto overflow-hidden z-30 h-full flex items-center'>
@@ -75,7 +75,7 @@ const Summary = ({ cart, subTotal, customer, address }) => {
                                 </div>
                                 <div className='flex flex-col space-y-7 h-28 md:border-b w-96 justify-center'>
                                     <div className='flex space-x-2 items-center'>
-                                        <input type="checkbox" name="agree" id="agree" onClick={() => setReady(!ready)} />
+                                        <input type="checkbox" name="agree" id="agree" className='hover:cursor-pointer' onClick={() => setReady(!ready)} />
                                         <label htmlFor="agree" className='text-xs'>I hereby declare that I have checked and verify all the details for this order.</label>
                                     </div>
                                     <div>

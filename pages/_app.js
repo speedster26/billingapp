@@ -3,9 +3,10 @@ import Navbar from '../components/Navbar'
 import { useState, useEffect } from 'react'
 import '../styles/globals.css'
 import NextNProgress from "nextjs-progressbar";
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgBar from '../components/ProgBar';
+import { useRouter } from 'next/router';
 
 
 function MyApp({ Component, pageProps }) {
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }) {
   const [customer, setCustomer] = useState({})
   const [subTotal, setSubTotal] = useState(0)
   const [user, setUser] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
     let cart = JSON.parse(localStorage.getItem('cart'))
@@ -26,6 +28,12 @@ function MyApp({ Component, pageProps }) {
     }
     if (localStorage.getItem('token')) {
       setUser(localStorage.getItem('token'))
+    }
+    else{
+      router.push('/login')
+    }
+    if(router.route  == '/'){
+      router.push('/login')
     }
     if (sessionStorage.getItem('address')) {
       setAddress(JSON.parse(sessionStorage.getItem('address')))

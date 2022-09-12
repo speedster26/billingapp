@@ -10,7 +10,7 @@ const ProgBar = ({ page }) => {
     const router = useRouter()
     const p = ['Billing', 'Order', 'Summary', 'Gateway', 'Confirm']
     return (
-        <div className='w-fit mx-auto mt-12 p-4 shadow-lg bg-gradient-to-l from-blue-100 to-blue-50 rounded-3xl hover:scale-105 transition hover:cursor-pointer hidden md:block'>
+        <div className='w-fit mx-auto mt-12 p-4 shadow-lg bg-white rounded-3xl hover:scale-105 transition hover:cursor-pointer hidden md:block'>
             <div className='flex w-full'>
                 {p.indexOf(page) <= 0 && <div className='flex flex-col items-center justify-center'><div className='h-16 w-16 rounded-full border border-slate-300 flex items-center justify-center text-sm' onClick={() => router.push('billing')} ><AiOutlineShoppingCart className='w-8 h-8'/></div><div>{p[0]}</div></div>}
                 {p.indexOf(page) > 0 && <div className='flex flex-col items-center justify-center'><div className='rounded-full border border-slate-300 bg-green-500 hover:cursor-pointer text-sm h-16 w-16 flex items-center' onClick={() => router.push('billing')}><BsCheckLg className='w-full'/></div><div>{p[0]}</div></div>}

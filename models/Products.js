@@ -1,6 +1,7 @@
 import mongoose, { model, models, Schema } from "mongoose";
 
 const ProductSchema = new Schema({
+    storeId: {type: String, required: true},
     title: {type: String, required: true},
     price: {type: Number, required: true},
     desc: {type: String, required: true},

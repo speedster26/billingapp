@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import mongoose from 'mongoose';
 import Products from '../models/Products';
-import connectDb from '../middleware/mongoose';
 import dynamic from "next/dynamic"
 import { useRouter } from 'next/router';
 import ProgBar from '../components/ProgBar';
@@ -18,18 +17,12 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
     const [homedelivery, setHomedelivery] = useState(false)
     const [scanResult, setScanResult] = useState('')
     const [scan, setScan] = useState(false)
-    const [products, setProducts] = useState(allproducts)
+    const [products, setProducts] = useState([])
     const [category, setCategory] = useState('Select category')
     const [tAddress, setTAddress] = useState({ saddress: '', city: '', state: '' })
 
     const router = useRouter()
-
-    useEffect(() => {
-        router.query.category ? setCategory(router.query.category) : setCategory('')
-        setProducts(allproducts)
-    }, [allproducts, category, router.query.category])
-
-
+    
     const handleChange1 = (e) => {
         setScanResult(e.target.value);
         refreshPro(e.target.value)
@@ -49,7 +42,13 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
     }
     const handleSelect = (e) => {
         setCategory(e.target.value)
-        router.push('?category=' + e.target.value)
+        let p = []
+        allproducts.forEach(ele => {
+            if(ele.category == e.target.value){
+                p.push(ele)
+            }
+        });
+        setProducts(p)
     }
     return (
         <>
@@ -57,7 +56,7 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
         <div className='flex flex-col md:mx-auto mt-20 items-center md:space-y-10 my-14'>
             <h1 className='text-3xl text-center font-semibold'>Billing</h1>
             <div className="flex flex-col md:flex-row md:space-x-10">
-                <div className="md:w-[45vw] items-center flex flex-col space-y-5 shadow-2xl bg-blue-50 rounded-3xl p-8 m-4">
+                <div className="md:w-[45vw] items-center flex flex-col space-y-5 shadow-2xl bg-white rounded-3xl p-8 m-4">
                     <div className="flex flex-col md:w-1/2 w-[75vw] md:space-x-5 space-y-4">
                         <h2 className='text-xl font-semibold'>1. Select Product</h2>
                         <select name="category" onChange={handleSelect} id="category" value={category} className='relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-black focus:border-black focus:z-10 text-sm md:text-base'>
@@ -122,10 +121,10 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
                     </div>}
                 </div>
                 <div className='md:w-[45vw] px-10 shadow-2xl rounded-3xl bg-white p-8 m-4'>
-                    {allproducts.length == 0 && <div className='text-xl font-medium text-center'>Nothing to Display</div>}
-                    <div className="grid grid-flow-row md:grid-cols-4 grid-cols-1 gap-2">
+                    {products.length == 0 && <div className='text-xl font-medium text-center'>Nothing to Display</div>}
+                    <div className="grid grid-flow-row md:grid-cols-3 grid-cols-1 gap-2">
                         {products.map((item, i) => {
-                            return <div key={i} className='flex flex-col border w-full p-3 hover:cursor-pointer hover:border-[#ff6900] hover:scale-105 transition'>
+                            return <div key={i} className='flex flex-col border w-full p-3 hover:cursor-pointer hover:border-[#ff6900] hover:scale-90 transition'>
                                 <div className='mx-auto overflow-hidden z-30'>
                                     <Image src={item.image} className='object-contain object-center' priority={true} height={200} width={200} alt={'image'} />
                                 </div>
@@ -140,7 +139,7 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
                                             <button className="px-1 rounded-lg border text-xs mr-1">{item.size}</button>
                                         </div>
                                         <div className='flex justify-end text-white font-semibold'>
-                                            <button onClick={() => addToCart(1, item.title, item.price, item.size, item.color, item.serNo, item.desc, item._id, item.image)} className='flex items-center px-3 py-1 rounded-lg border-2 bg-[#ff6900] hover:scale-110 hover:shadow-lg'><AiOutlineShoppingCart />Add</button>
+                                            <button onClick={() => addToCart(1, item.title, item.price, item.size, item.color, item.serNo, item.desc, item._id, item.image)} className='flex items-center px-3 py-1 rounded-lg border-2 bg-[#ff6900] hover:scale-110 hover:shadow-lg transition'><AiOutlineShoppingCart />Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +149,6 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
                     </div>
                 </div>
             </div>
-
         </div>
         <Footer cart={cart} address={address} addToCart={addToCart} subTotal={subTotal} removeFromCart={removeFromCart} deleteFromCart={deleteFromCart} />
 </>
@@ -161,7 +159,7 @@ export async function getServerSideProps(context) {
     if (!mongoose.connections[0].readyState) {
         mongoose.connect(process.env.MONGO_URI)
     }
-    let products = await Products.find({ category: context.query.category, availableQty: { $gt: 0 } })
+    let products = await Products.find({ storeId: context.query.storeId, availableQty: { $gt: 0 } })
     return {
         props: {
             allproducts: JSON.parse(JSON.stringify(products))

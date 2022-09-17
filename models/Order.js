@@ -8,7 +8,9 @@ const OrderSchema = new Schema({
     orderItems: {type: Array, required: true},
     orderTotal: {type: Number, required: true},
     orderStatus: {type: String, default: "Pending"},
-    operatorId: {type: Number, required: true, default: 12345},
+    operatorId: {type: Number, required: true},
+    paymentInfo: {type: Object},
+    paymentMethod: {type: String},
 },{timestamps: true});
 
 export default models.Order || model("Order", OrderSchema);

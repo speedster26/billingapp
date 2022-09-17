@@ -44,7 +44,6 @@ const Order = ({ saveCustomer }) => {
         <>
             <ProgBar page={'Order'} />
             <div className='flex justify-center'>
-
                 <div className='flex flex-col items-center mt-20 space-y-20 bg-blue-50 w-fit p-10 rounded-3xl shadow-2xl mx-2'>
                     <h1 className='md:text-2xl text-xl font-semibold'>Basic Information</h1>
                     <form onSubmit={handleSubmit} className='flex flex-col md:text-xl text-lg space-y-3'>

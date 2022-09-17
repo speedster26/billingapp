@@ -4,7 +4,6 @@ import connectDb from "../../middleware/mongoose"
 var jwt = require('jsonwebtoken');
 
 const handler = async (req, res) => {
-
     try {
         if (req.method == 'POST') {
             let u = jwt.verify(req.body.token, process.env.JWT_SECRET);

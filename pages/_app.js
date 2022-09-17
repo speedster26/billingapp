@@ -30,7 +30,21 @@ function MyApp({ Component, pageProps }) {
       setUser(localStorage.getItem('token'))
     }
     else{
-      router.push('/login')
+      setUser("")
+      if(router.pathname!=='/login'){
+        toast.error('Please login to continue', {
+          position: "bottom-center",
+          autoClose: 800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+      setTimeout(() => {
+        router.push('/login')
+      }, 200);
+      }
     }
     if(router.route  == '/'){
       router.push('/login')
@@ -41,7 +55,7 @@ function MyApp({ Component, pageProps }) {
     if (sessionStorage.getItem('customer')) {
       setCustomer(JSON.parse(sessionStorage.getItem('customer')))
     }
-  }, [])
+  }, [router])
 
 
   const saveCart = (myCart) => {
@@ -109,8 +123,14 @@ function MyApp({ Component, pageProps }) {
     setCustomer(customer)
     sessionStorage.setItem('customer', JSON.stringify(customer))
   }
+  const logout = () => {
+    localStorage.removeItem('token')
+    setUser("")
+    router.push('/login')
+  }
+
   return <>
-    {/* <Navbar /> */}
+    {router.pathname!=="/login" && <Navbar logout={logout} />}
     <NextNProgress color='#ff6900' />
     <ToastContainer
       position="bottom-center"
@@ -122,7 +142,7 @@ function MyApp({ Component, pageProps }) {
       pauseOnFocusLoss
       draggable
     />
-    <Component addToCart={addToCart} saveAddress={saveAddress} saveCustomer={saveCustomer} cart={cart} subTotal={subTotal} customer={customer} address={address} removeFromCart={removeFromCart} deleteFromCart={deleteFromCart} {...pageProps} />
+    <Component addToCart={addToCart} saveAddress={saveAddress} saveCustomer={saveCustomer} cart={cart} subTotal={subTotal} customer={customer} address={address} removeFromCart={removeFromCart} deleteFromCart={deleteFromCart} user={user} {...pageProps} />
   </>
 }
 

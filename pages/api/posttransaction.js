@@ -33,18 +33,18 @@ const handler = async (req, res) => {
   }
   else if (req.body.STATUS === "TXN_SUCCESS") {
       console.log(req.body);
-    //   let order = await Order.findOne({ orderId: req.body.ORDERID });
-    //   const { orderInfo } = order
-    //   // Update order status in db
-    //   orderInfo.status = 'PAID'
-    //   await Order.findByIdAndUpdate(order._id, { orderInfo, paymentInfo: req.body })
-    //   const { products } = orderInfo
-    //   // Update the available qty in products db
-    //   for (let item of products) {
-    //     let pro = await Products.findById(item.itemCode);
-    //     pro.availableQty = pro.availableQty - item.qty
-    //     await Products.findByIdAndUpdate(item.itemCode, pro)
-    //   }
+      let order = await Order.findOne({ orderId: req.body.ORDERID });
+      // Update order status in db
+      order.orderStatus = 'PAID'
+      order.paymentInfo = req.body
+      const { orderItems } = order
+      await Order.findByIdAndUpdate(order._id, order)
+      // Update the available qty in products db
+      for (let item of orderItems) {
+        let pro = await Products.findById(item._id);
+        pro.availableQty = pro.availableQty - item.qty
+        await Products.findByIdAndUpdate(item._id, pro)
+      }
       // Redirect user to payment confirmation page
       res.redirect(`/confirm?id=${req.body.ORDERID}`, 200);
     

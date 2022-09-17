@@ -31,10 +31,19 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
             })
-            setTimeout(() => {
-                localStorage.setItem("token", response.token)
-                router.push(`/store?token=${response.token}`)
-            }, 1000);
+            localStorage.setItem("token", response.token)
+            router.push(`/store?token=${response.token}`)
+        }
+        else{
+            toast.error("Login failed", {
+                position: "bottom-center",
+                autoClose: 800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
         }
     }
     return (

@@ -15,7 +15,7 @@ const Summary = ({ cart, subTotal, customer, address }) => {
             <div className='flex md:justify-center items-center'>
                 <div className='flex flex-col items-center justify-center mt-20 space-y-20 md:shadow-2xl md:rounded-3xl md:bg-white m-1 p-2'>
                     <h1 className='text-2xl font-semibold '>Order Summary</h1>
-                    <div className="flex md:flex-row flex-col justify-center items-center space-y-7 md:space-y-0">
+                    <div className="flex md:flex-row flex-col justify-center space-y-7 md:space-y-0">
                         <div className='md:w-[40vw] md:border-r flex flex-col space-y-5 items-center shadow-2xl md:shadow-none rounded-3xl md:rounded-none bg-white m-1 md:m-0 p-2'>
                             <h2 className='md:text-xl text-lg font-medium'>Customer Details</h2>
                             <div className='flex flex-col space-y-5 md:text-lg text-base m-1'>
@@ -31,7 +31,7 @@ const Summary = ({ cart, subTotal, customer, address }) => {
                                     <div className='md:w-44 w-32'>E-mail:</div>
                                     <div className='md:w-52 w-fit'>{customer.email}</div>
                                 </div>
-                                {address !== null && <div className="flex">
+                                {Object.keys(address).length!==0 && <div className="flex">
                                     <div className='md:w-44 w-64'>Address:</div>
                                     <div className='md:w-64'>{address.saddress + ", " + address.city + ", " + address.state}</div>
                                 </div>}

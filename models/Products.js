@@ -4,6 +4,7 @@ const ProductSchema = new Schema({
     storeId: {type: String, required: true},
     title: {type: String, required: true},
     price: {type: Number, required: true},
+    tax: {type: Number, required: true},
     desc: {type: String, required: true},
     image: {type: String, required: true},
     serNo: {type: String, required: true},

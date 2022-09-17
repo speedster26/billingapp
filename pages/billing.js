@@ -7,6 +7,7 @@ import dynamic from "next/dynamic"
 import { useRouter } from 'next/router';
 import ProgBar from '../components/ProgBar';
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 const BarCodeScanner = dynamic(
     () => import("barcode-react-scanner"),

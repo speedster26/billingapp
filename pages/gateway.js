@@ -13,12 +13,36 @@ const Gateway = ({ address, cart, customer, subTotal , user }) => {
   const handleClick = (e) => {
     if (method === 'cash') {
       getU()
-      let orderId = Math.floor(Math.random() * Date.now());
-      router.push(`/confirm?id=${orderId}`)
+      saveOrder()
     }
     else if (method === 'paytm') {
       getU()
       initiatePayment();
+    }
+  }
+  const saveOrder = async () => {
+    let orderId = Math.floor(Math.random() * Date.now());
+    let order = {
+      orderId,
+      custInfo: customer,
+      custAddress: address,
+      orderItems: cart,
+      orderTotal: subTotal,
+      orderStatus: 'PAID',
+      operatorId: id,
+      paymentMethod: 'CASH'
+    }
+    let res = await fetch('/api/addorder',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({order})
+    })
+    let data = await res.json();
+    if (data.success) {
+      localStorage.removeItem('cart')
+      router.push(`/confirm?id=${data.orderId}`)
     }
   }
   const getU = async () => {
@@ -34,7 +58,7 @@ const Gateway = ({ address, cart, customer, subTotal , user }) => {
   }
   const initiatePayment = async () => {
     let orderId = Math.floor(Math.random() * Date.now());
-    const data = { orderId, custInfo: customer, custAddress: address, orderItems: cart, orderTotal: subTotal, orderStatus: 'Pending', operatorId: id }
+    const data = { orderId, custInfo: customer, custAddress: address, orderItems: cart, orderTotal: subTotal, orderStatus: 'Pending', operatorId: id , paymentMethod: 'PAYTM' }
     let a = await fetch('/api/pretransaction', {
       method: 'POST',
       headers: {
@@ -75,7 +99,10 @@ const Gateway = ({ address, cart, customer, subTotal , user }) => {
   }
 
   return (
-    <><Head><meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" /></Head>
+    <><Head>
+      <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
+      <title>MI | Gateway</title>
+    </Head>
       <Script type="application/javascript" crossOrigin="anonymous" src={`${process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} />
       <ProgBar page={'Gateway'}/>
       <div className='flex justify-center'>

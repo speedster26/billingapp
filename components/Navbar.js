@@ -15,7 +15,7 @@ const Navbar = ({logout}) => {
   return (
     <div className='md:relative'>
       <div className='hover:scale-110 transition hover:cursor-pointer md:absolute left-60 top-10'>
-        <Image src={'/Xiaomi_logo.svg'} alt={'logo'} height={55} width={55} onClick={()=>router.pathname==="/orders"?router.push("billing"):null}/>
+        <Image src={'/Xiaomi_logo.svg'} alt={'logo'} height={55} width={55} onClick={()=>router.pathname==="/orders"?router.push(`/billing?orderId=${sessionStorage.getItem('store')}`):null}/>
       </div>
       <div className='md:absolute right-60 top-10 shadow-2xl'>
         <BiUserCircle className='text-[#ff6900] text-3xl rounded-full hover:scale-110 transition hover:cursor-pointer' onClick={handleHover} />

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import ProgBar from '../components/ProgBar';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import Head from 'next/head';
 
 const BarCodeScanner = dynamic(
     () => import("barcode-react-scanner"),
@@ -53,6 +54,7 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
     }
     return (
         <>
+        <Head><title>MI | Billing</title></Head>
             <ProgBar page={'Billing'}/>
         <div className='flex flex-col md:mx-auto mt-20 items-center md:space-y-10 my-14'>
             <h1 className='text-3xl text-center font-semibold'>Billing</h1>
@@ -74,7 +76,7 @@ const Billing = ({ allproducts, addToCart, saveAddress , address , cart , subTot
                             <div><button className='flex items-center px-10 py-2 rounded-lg border-2 bg-[#ff6900] text-white font-semibold' onClick={() => setScan(!scan)}>Scan</button></div>
                             {scan && <div>
                                 <div>Scanning</div>
-                                <div>
+                                <div className='hidden'>
                                     <BarCodeScanner className='hidden' onUpdate={(err, resp) => {
                                         if (resp) {
                                             setScanResult(resp.getText())

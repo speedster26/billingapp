@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { toast } from 'react-toastify';
+import Head from 'next/head';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ miid: "", password: "" })
@@ -47,6 +48,8 @@ const Login = () => {
         }
     }
     return (
+        <>
+        <Head><title>MI | Login</title></Head>
         <div className='flex flex-col items-center'>
             <div className='flex flex-col justify-center items-center mt-32 space-y-32 border shadow-2xl rounded-3xl w-fit p-4 bg-white m-4'>
                 <Image src={'/Xiaomi_logo.svg'} alt={'logo'} height={100} width={100} />
@@ -68,6 +71,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 var jwt = require('jsonwebtoken');
 import User from '../models/User'
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 function Store({category,allstore}) {
     const [selectedS, setSelectedS] = useState({})
@@ -36,17 +37,18 @@ function Store({category,allstore}) {
                 setSelectedS({...selectedS,storeId:ele.storeId})
             }
         });
-        console.log(selectedS);
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         setTimeout(() => {
-            sessionStorage.setItem("store",JSON.parse(JSON.stringify(selectedS)))
+            sessionStorage.setItem("store",JSON.stringify(selectedS))
             router.push(`/billing?storeId=${selectedS.storeId}`)
         },5000);
     }
     
     return (
+        <>
+        <Head><title>MI | Confirm</title></Head>
         <div className='flex flex-col items-center'>
             <div className='flex flex-col justify-center items-center mt-32 space-y-32 border shadow-2xl rounded-3xl w-fit p-4 bg-white m-4'>
                 <Image src={'/Xiaomi_logo.svg'} alt={'logo'} height={100} width={100} />
@@ -78,6 +80,7 @@ function Store({category,allstore}) {
                 </div>
             </div>
         </div>
+    </>
     );
 }
 

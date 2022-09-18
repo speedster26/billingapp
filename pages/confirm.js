@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import ProgBar from '../components/ProgBar';
 import { useReactToPrint } from 'react-to-print';
+import Head from 'next/head';
 
 const Confirm = () => {
   const router = useRouter()
@@ -13,7 +14,7 @@ const Confirm = () => {
   const [ID, setID] = useState("")
   const handleNew = () => {
     localStorage.removeItem('cart')
-    router.push('/billing')
+    router.push(`/billing?storeId=${sessionStorage.getItem('store')}`)
   }
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -21,6 +22,7 @@ const Confirm = () => {
   });
   return (
     <>
+    <Head><title>MI | Confirm</title></Head>
       <ProgBar page={'Confirm'} />
       <div ref={componentRef} className='mt-20 flex flex-col justify-center items-center space-y-5'>
         <div className='flex flex-col p-10 items-center bg-white justify-center space-y-10 shadow-2xl rounded-3xl w-fit'>

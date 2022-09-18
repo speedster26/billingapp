@@ -16,7 +16,9 @@ const handler = async (req, res) => {
                     category: req.body[i].category,
                     color: req.body[i].color,
                     size: req.body[i].size,
-                    availableQty: req.body[i].availableQty
+                    availableQty: req.body[i].availableQty,
+                    tax: req.body[i].tax,
+                    storeId: req.body[i].storeId
                 })
                 await p.save();
             }

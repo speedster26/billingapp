@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import ProgBar from '../components/ProgBar'
+import Head from 'next/head'
 
 const Summary = ({ cart, subTotal, customer, address }) => {
     const [ready, setReady] = useState(false)
@@ -11,6 +12,7 @@ const Summary = ({ cart, subTotal, customer, address }) => {
 
     return (
         <>
+        <Head><title>MI | Confirm</title></Head>
             <ProgBar page={'Summary'} />
             <div className='flex md:justify-center items-center'>
                 <div className='flex flex-col items-center justify-center mt-20 space-y-20 md:shadow-2xl md:rounded-3xl md:bg-white m-1 p-2'>
@@ -55,18 +57,18 @@ const Summary = ({ cart, subTotal, customer, address }) => {
                                             <div>Color: {item.color}</div>
                                         </div>
                                         <div className='flex items-center'>
-                                            <div className='md:text-sm text-xs'>₹{item.price * item.qty}</div>
+                                            <div className='md:text-sm text-xs'>₹{item.price * item.qty*(1-(0.18))}</div>
                                         </div>
                                     </div>
                                 })}
                                 <div className='flex flex-col md:h-28 h-auto border-b md:w-96 w-auto justify-center'>
                                     <div className='flex justify-end'>
                                         <div className='md:text-sm text-xs md:w-36 w-24 text-right'>Order Subtotal</div>
-                                        <div className='md:text-sm text-xs md:w-28 w-20 text-right'>₹{subTotal}</div>
+                                        <div className='md:text-sm text-xs md:w-28 w-20 text-right'>₹{subTotal-(subTotal*0.18)}</div>
                                     </div>
                                     <div className='flex justify-end'>
                                         <div className='md:text-sm text-xs md:w-36 w-24 text-right'>Tax</div>
-                                        <div className='md:text-sm text-xs md:w-28 w-20 text-right'>₹0</div>
+                                        <div className='md:text-sm text-xs md:w-28 w-20 text-right'>₹{subTotal*18/100}</div>
                                     </div>
                                     <div className='flex justify-end'>
                                         <div className='md:text-xl text-lg md:w-36 w-24 text-right'>Total</div>

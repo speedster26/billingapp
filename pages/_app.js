@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router])
 
-
+  const ignore = ["/login","/store"]
   const saveCart = (myCart) => {
     localStorage.setItem('cart', JSON.stringify(myCart))
     let subT = 0;
@@ -79,6 +79,26 @@ function MyApp({ Component, pageProps }) {
     }
     if (!found) {
       myCart.push({ qty, title, price, size, color, sn, desc, _id, image })
+      toast.success("Added to cart", {
+        position: "bottom-center",
+        autoClose: 800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    })
+    }
+    else{
+      toast.success("Quantity increased", {
+        position: "bottom-center",
+        autoClose: 800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    })
     }
     saveCart(myCart)
     setCart(myCart)
@@ -130,7 +150,7 @@ function MyApp({ Component, pageProps }) {
   }
 
   return <>
-    {router.pathname!=="/login" && <Navbar logout={logout} />}
+    {!ignore.includes(router.pathname) && <Navbar logout={logout} />}
     <NextNProgress color='#ff6900' />
     <ToastContainer
       position="bottom-center"
